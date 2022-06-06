@@ -1,0 +1,43 @@
+import matplotlib.pyplot as plt
+import numpy as np
+from PIL import Image
+import cv2
+
+img = plt.imread('original/sample.png')
+fig = plt.figure(figsize=(8.0,6.0))
+ax1 = fig.add_subplot(2,3,1)
+ax1.imshow(img)
+plt.title('blur_picture')
+
+
+###  中值滤波
+median_filter_img = cv2.medianBlur(img, 3)
+ax2 = fig.add_subplot(2,3,2)
+ax2.imshow(median_filter_img)
+plt.title('median_filter')
+
+
+#### 高斯滤波
+Gaussian_filter_img = cv2.GaussianBlur(img, (3,3), 0)
+ax2 = fig.add_subplot(2,3,3)
+ax2.imshow(Gaussian_filter_img)
+plt.title('Gaussian_filter')
+
+
+####　均值滤波
+mean_vaule_filter = cv2.blur(img, (5,5))
+ax2 = fig.add_subplot(2,3,4)
+ax2.imshow(mean_vaule_filter)
+plt.title('mean_vaule_filter')
+plt.savefig('result3.png')
+plt.show()
+
+
+
+#img = cv2.imread("sample.png")
+#dst = cv2.fastNlMeansDenoisingColored(img,None,10,10,7,21)
+#plt.imshow(dst)
+#plt.subplot(121),plt.imshow(img)
+#plt.subplot(122),plt.imshow(dst)
+#plt.savefig('result.png')
+#plt.show()

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"> 
+<title>密斯卡托尼克大学帖子管理</title> 
+
+<link rel="stylesheet" type="text/css" href="../style/standard.css" />
+<script src="https://code.jquery.com/jquery-2.2.3.js" type="text/javascript">
+</script>
+
+<script type="text/javascript">//打印所有json数据
+	$(document).ready(function(){
+		
+		$.get("../sever/article.php",function(data){
+			console.log(data);
+			data=$.parseJSON(data);
+			var html='';
+			for ( var i = 0; i < data.length; i++) {
+				html=html+'<h1 style="border-bottom-style:solid;border-bottom-color: #4169E1;"><a href="../sever/check_body.php?aid='+
+                data[i].aid+'"><b>'+
+                data[i].head+'</b></a><br><input type="checkbox" id='+
+                data[i].aid +'></h1>';
+				html=html+'<br><br>';
+			}
+			$('#infor').html(html);			
+		});
+	});
+</script>
+<script type="text/javascript">//删除
+    $(document).ready(function(){
+        $("#delete").click(function(){
+            $.get("../sever/article.php",function(data){
+                data=$.parseJSON(data);
+                for ( var i = 0; i < data.length; i++){
+                    if($('#'+data[i].aid).prop('checked')){
+                        
+                    console.log($('#'+data[i].aid).attr('id'));
+                    $.post("../sever/deleteArticle.php",
+                        {
+                            aid:data[i].aid
+                        },
+                        function(data){
+                            
+                        });
+                    }
+                }
+            });
+        alert("删除成功!");
+        location.reload();
+        });
+     
+      });
+    </script>
+<script>
+    $(document).ready(function(){
+        $("#back").click(function(){
+            location=document.referrer;
+        })
+    })
+</script>
+
+
+
+</head>
+
+<body>
+<div id="begin"> 
+    <a href="http://www.hcxdbwork.xyz"><img src="../pictures/logo.png">
+    </a>
+</div>
+
+<div id="recommend">
+    <p>
+        今日推荐：
+        <a class="nodecorate" href="https://www.decembertwentytwo.com/index.php/2020/02/19/pikapika/">
+            <s>恰饭</s><b>PikaPika~</b>
+        </a>
+    </p>
+</div>
+
+
+<div id="section">
+    <h>
+        <b>所有帖子</b><br>
+    </h>
+    <br>
+    <p id="infor">
+        现在开始打印
+    </p>
+	<button id="delete">
+		删除
+    </button>
+    <button id="back">
+        返回上一页
+    </button>
+    <br>
+</div>
+
+<div id="end">
+    <h>      
+        <a href="beian.miit.gov.cn">
+            beian.miit.gov.cn
+        </a>
+        <h>
+            赣ICP备20000365号<br>
+        </h>
+    </h>
+        <h>
+            <b>是胡辰昕做的网页哦</b>
+        </h>
+
+
+</div>
+
+</body>
+</html>

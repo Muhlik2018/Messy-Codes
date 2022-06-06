@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"> 
+<title>密斯卡托尼克大学</title> 
+
+<link rel="stylesheet" type="text/css" href="style/standard.css" />
+
+        <script src="https://code.jquery.com/jquery-2.2.3.js" type="text/javascript">
+        </script>
+        <script type="text/javascript">
+        $(document).ready(function(){
+        	$.get(
+        		"sever/check_session.php",
+        		function(data)
+        		{
+                if(data==2)
+                {
+                    $("#welcome").html("<s>?不读书了?</s><br><b>你好!管理员</b><br>")
+                    $("#first").text("管理员页面");
+                    $("#first").attr("href","pages/manager.html")
+                    $("#second").text("注销");
+                    $("#second").attr("href","pages/logout.html")
+                }
+                else if(data==1)
+                {	
+                	$("#welcome").html("<s>?不读书了?</s><br><b>你好!</b><br>")
+                    $("#first").text("用户页面");
+                    $("#first").attr("href","pages/user.html")
+                    $("#second").text("注销");
+                    $("#second").attr("href","pages/logout.html")
+                }
+        		}
+        		
+        		
+        		);
+        	
+        });
+        </script>
+
+<script src="https://code.jquery.com/jquery-2.2.3.js" type="text/javascript">
+</script>
+<script>
+$(document).ready(function(){
+	$("#btn").click(function(){
+		var ahead=$("#head").val();
+		var abody=$("#body").val();
+		var chead=$.trim(ahead);
+		var cbody=$.trim(abody);
+		console.log(ahead);
+		console.log(abody);
+		if(chead!="" && cbody!=""){
+		$.post("sever/press.php",
+		{head:ahead,
+		body:abody},
+		function(data){
+			if(data==1){
+				alert("发布成功");
+				location.reload();
+			}
+			else
+				alert("发布失败,请先登陆");
+		});}
+		else if(chead==""){
+			alert("请写标题");
+		}
+		else if(cbody==""){
+			alert("请写内容");
+		}
+		
+		
+	});
+});
+</script>
+<script type="text/javascript">//打印所有json数据
+	$(document).ready(function(){
+		
+		$.get("sever/article.php",function(data){
+			console.log(data);
+            var html='';
+			data=$.parseJSON(data);
+			for ( var i = 0; i < data.length; i++) {
+				html=html+'<h2 style="border-top-style:solid;border-top-color: #4169E1"><a class="article" href="sever/check_body.php?aid='+data[i].aid+'"><b>'+data[i].head+'</b></a></h2><br>';
+				html=html+'<p style="border-bottom-style:solid;border-bottom-color: #4169E1;">by '+ data[i].userName+ ' at '+ data[i].articleTime +'</p>';
+                
+				html=html+'<br><br>';
+			}
+			$('#infor').html(html);			
+		});
+	});
+</script>
+
+
+
+</head>
+
+
+
+
+
+
+<body>
+<div id="begin"> 
+    <a href="http://www.hcxdbwork.xyz"><img src="pictures/logo.png">
+    </a>
+    <h1 style="
+    float: right;
+    font-size:14px;
+    ">
+
+        <h id="welcome">
+            欢迎来到本站，请：  <br>  
+        </h>
+
+        <a id="first" href="pages/login.html">
+            登陆
+        </a>
+
+        <h>
+            /
+        </h>
+
+        <a id="second" href="pages/register.html">
+        
+            注册<br>
+        </a>
+
+    </h1>
+</div>
+
+<div id="recommend">
+    <p>
+        今日推荐：
+        <a class="nodecorate" href="https://www.decembertwentytwo.com/index.php/2020/02/19/pikapika/">
+            <s>恰饭</s><b>PikaPika~</b>
+        </a>
+    </p>
+</div>
+
+<div id="links">
+    
+    <a class="square" href="https://www.hcxdbwork.xyz/">
+        主页
+    </a><br>
+    <a class="square" href="https://www.decembertwentytwo.com/">
+        热门
+    </a><br>
+    <a class="square" href="https://www.decembertwentytwo.com/">
+        精品
+    </a>
+</div>
+
+<div id="section">
+    <h1>
+        <b>欢迎来到本站!</b><br>
+    </h1>
+    <br>
+    <p id="infor">
+        现在开始打印
+    </p>
+    <br>
+<div>
+    <p>请输入您的高见吧</p>
+    <label>标题</label>
+    <input type="text"
+    name=header
+    size=35
+    id="head">
+    <br>
+    <br>
+    <label>内容</label>
+    <textarea rows="10"
+    cols="30"
+    id="body">
+    </textarea>
+    <br>
+    <button id="btn">
+	点击提交
+	</button>
+</div>
+</div>
+
+
+
+<div id="end">
+    <h>      
+        <a href="beian.miit.gov.cn">
+            beian.miit.gov.cn
+        </a>
+        <h>
+            赣ICP备20000365号<br>
+        </h>
+    </h>
+        <h>
+            <b>是胡辰昕做的网页哦</b>
+        </h>
+        <br>
+
+</div>
+
+</body>
+
+
+</html>

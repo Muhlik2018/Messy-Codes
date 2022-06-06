@@ -1,0 +1,82 @@
+<script type="text/javascript">//打印所有json数据
+	var page=0;
+	var currentpage=1;
+	var artPerPage=2;
+	var totalpage=1;
+$(document).ready(function(){
+	
+	$.get("sever/article.php",function(data){
+		console.log(data);
+		data=$.parseJSON(data);
+		var html='';
+		for ( var i = (currentpage-1)*artPerPage; i <= artPerPage*currentpage-1; i++) {//data.length
+			totalpage=(data.length-((data).length)%artPerPage)/artPerPage+1;
+			console.log(totalpage);
+			html=html+'<h2 style="border-top-style:solid;border-top-color: #4169E1"><a class="article" href="sever/check_body.php?aid='+data[i].aid+'"><b>'+data[i].head+'</b></a></h2><br>';
+			html=html+'<p style="border-bottom-style:solid;border-bottom-color: #4169E1;">by '+ data[i].userName+ ' at '+ data[i].aricleTime +'</p>';
+			html=html+'<br><br>';
+		}
+		$('#infor').html(html);			
+	});
+	$("#nextpage").click(function(){
+		if(currentpage==totalpage-1){
+		currentpage=currentpage+1;
+		$.get("sever/article.php",function(data){
+		console.log(data);
+		data=$.parseJSON(data);
+		var html='';
+		for ( var i = (currentpage-1)*artPerPage; i < data.length; i++) {//data.length
+			console.log(totalpage);
+			html=html+'<h2 style="border-top-style:solid;border-top-color: #4169E1"><a class="article" href="sever/check_body.php?aid='+data[i].aid+'"><b>'+data[i].head+'</b></a></h2><br>';
+			html=html+'<p style="border-bottom-style:solid;border-bottom-color: #4169E1;">by '+ data[i].userName+ ' at '+ data[i].aricleTime +'</p>';
+			html=html+'<br><br>';
+		}
+		$('#infor').html(html);			
+	});}
+	else if(currentpage==totalpage){
+		alert("您已到最后一面");
+	}
+	else{
+		currentpage=currentpage+1;
+		$.get("sever/article.php",function(data){
+		console.log(data);
+		data=$.parseJSON(data);
+		var html='';
+		for ( var i = (currentpage-1)*artPerPage; i <= artPerPage*currentpage-1; i++) {//data.length
+			console.log(totalpage);
+			html=html+'<h2 style="border-top-style:solid;border-top-color: #4169E1"><a class="article" href="sever/check_body.php?aid='+data[i].aid+'"><b>'+data[i].head+'</b></a></h2><br>';
+			html=html+'<p style="border-bottom-style:solid;border-bottom-color: #4169E1;">by '+ data[i].userName+ ' at '+ data[i].aricleTime +'</p>';
+			html=html+'<br><br>';
+		}
+		$('#infor').html(html);			
+	});}})
+		
+	
+	
+	
+	$("#prepage").click(function(){
+		if(currentpage!=1){
+		currentpage=currentpage-1;
+		$.get("sever/article.php",function(data){
+		console.log(data);
+		data=$.parseJSON(data);
+		var html='';
+		for ( var i = (currentpage-1)*artPerPage; i < data.length; i++) {//data.length
+			console.log(totalpage);
+			html=html+'<h2 style="border-top-style:solid;border-top-color: #4169E1"><a class="article" href="sever/check_body.php?aid='+data[i].aid+'"><b>'+data[i].head+'</b></a></h2><br>';
+			html=html+'<p style="border-bottom-style:solid;border-bottom-color: #4169E1;">by '+ data[i].userName+ ' at '+ data[i].aricleTime +'</p>';
+			html=html+'<br><br>';
+		}
+		$('#infor').html(html);			
+	});}
+	else {
+		alert("您已到第一面");
+	}
+	
+		
+		
+	})
+	
+	
+});
+</script>

@@ -1,0 +1,18 @@
+#header {/*紫底白字且居中的标题栏*/
+    background-color:#7952B3;
+    color:white;
+    text-align:center;
+    padding:5px;
+}
+#section {/*文本块，居中*/
+    border-bottom-style: solid;
+    padding:10px; 
+    text-align: center;
+}
+#footer {/*紫底白字且居中位于底部的页脚*/
+    background-color:#7952B3;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:5px; 
+}

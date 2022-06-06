@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+<meta charset="utf-8"> 
+<title>华工计时器</title>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="_____/stylesheet.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.3.js" type="text/javascript"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		$('#submit').click(function(){
+			if($('#sign').val()=='')
+			alert("请输入一个计时码!");
+			else{
+    			$.post(//提交所有数据
+    				"sever/set_identity.php",
+    				{
+    				identity:$('#sign').val()
+    				},
+    				function(data){
+    				if(data==1)
+    					alert("找不到哦");
+    				else
+					{	
+						window.location.href="pages/counter.html";
+						return 0;
+					}
+    				},
+    				"text"
+    				);
+			}
+			
+		});
+		$('#create').click(function(){
+			window.location.href="pages/load.html";
+		});
+		
+		
+	});
+</script>
+
+<!--The following script tag downloads a font from the Adobe Edge Web Fonts server for use within the web page. We recommend that you do not modify it.--><script>var __adobewebfontsappname__="dreamweaver"</script><script src="http://use.edgefonts.net/calligraffitti:n4:default.js" type="text/javascript"></script>
+</head>
+<body style="background-color: #FAEBD7; font-family: '汉仪雪君体'; background-image: url(../picture/background.png); background-size: 103% auto; background-position: 40% -41%; color: #0B0A0A;">
+	<div style="background-color: #0771DF; height: 150px;">
+	<a href="http://www.hcxdbwork.xyz"><img src="picture/logo.png">
+    </a>
+	</div>
+	<div style="height: 100px; text-align: center; ">
+	</div>
+	<div style="height: 50px; text-align: center; font-style: normal; font-family: '汉仪雪君体'; font-weight: 400; font-variant: normal; color: #060606; font-size: large;">
+			<h1>欢迎使用本计时器</h1>
+	</div>
+	<div class="text-center">
+		<h2>请输入计时码</h2><br>
+		<input type="text" id="sign" size=70><br><br>
+		<button type="button" class="btn btn-primary" id="submit">提交</button>
+		<button type="button" class="btn btn-primary" id="create">创建计时器</button>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"> 
+<title>学院管理员</title> 
+
+<link rel="stylesheet" type="text/css" href="../style/standard.css" />
+
+<script src="https://code.jquery.com/jquery-2.2.3.js" type="text/javascript">
+</script>
+<script type="text/javascript">//打印所有json数据
+$(document).ready(function(){
+	
+	$.get("../sever/tempuser.php",function(data){
+		
+		data=$.parseJSON(data);
+		var html='';
+		for ( var i = 0; i < data.length; i++) {
+			html=html+'<tr>';
+			html=html+'<td>'+data[i].userName+'</td>';
+			html=html+'<td>'+data[i].userAccount+'</td>';
+			html=html+'<td>'+data[i].userTrueName+'</td>';
+			html=html+'<td>'+'<input type="checkbox" id='+data[i].userAccount +'>'+'</td>';
+			html=html+'</tr>';
+		}
+		$('#infor').html(html);
+		
+		
+	});
+	
+	
+	
+});
+</script>
+
+
+<script type="text/javascript">//拒绝
+$(document).ready(function(){
+	$("#delete").click(function(){
+		$.get("../sever/tempuser.php",function(data){
+			data=$.parseJSON(data);
+			for ( var i = 0; i < data.length; i++){
+				if($('#'+data[i].userAccount).prop('checked')){
+					
+				console.log($('#'+data[i].userAccount).attr('id'));
+				$.post("../sever/delete.php",
+					{
+						userAccount:data[i].userAccount
+					},
+					function(data){
+						
+					});
+				}
+			}
+		});
+	alert("删除成功!");
+	location.reload();
+	});
+ 
+  });
+</script>
+
+<script type="text/javascript">//批准
+$(document).ready(function(){
+	$("#agree").click(function(){
+		$.get("../sever/tempuser.php",function(data){
+			data=$.parseJSON(data);
+			for ( var i = 0; i < data.length; i++){
+				if($('#'+data[i].userAccount).prop('checked')){
+				console.log($('#'+data[i].userAccount).attr('id'));
+				$.post("../sever/agree.php",
+				{
+					userName:data[i].userName,
+					userAccount:data[i].userAccount,
+					userPassword:data[i].userPassword,
+					userTrueName:data[i].userTrueName,
+				},
+				function(data){
+					
+				}
+				);
+				
+				
+
+				$.post("../sever/delete.php",
+					{
+						userAccount:data[i].userAccount
+					},
+					function(data){
+						
+					});
+				}
+			}
+		});
+	alert("批准成功!");
+	location.reload();
+	});
+ 
+  });
+</script>
+
+<script type="text/javascript">//打印所有user数据
+	$(document).ready(function(){
+		
+		$.get("../sever/user.php",function(data){
+			
+			data=$.parseJSON(data);
+			var html='';
+			for ( var i = 0; i < data.length; i++) {
+				html=html+'<tr>';
+				html=html+'<td>'+data[i].userName+'</td>';
+				html=html+'<td>'+data[i].userAccount+'</td>';
+				html=html+'<td>'+data[i].userTrueName+'</td>';
+				html=html+'<td>'+data[i].userLevel+'</td>';
+				html=html+'<td>'+'<input type="checkbox" id='+data[i].userAccount +'>'+'</td>';
+				html=html+'</tr>';
+			}
+			$('#userinfor').html(html);
+			
+			
+		});
+		
+		
+		
+	});
+	</script>
+	
+	
+	<script type="text/javascript">//升级
+	$(document).ready(function(){
+		$("#levlup").click(function(){
+			$.get("../sever/user.php",function(data){
+				data=$.parseJSON(data);
+				for ( var i = 0; i < data.length; i++){
+					if($('#'+data[i].userAccount).prop('checked')){
+						
+					console.log($('#'+data[i].userAccount).attr('id'));
+					$.post("../sever/levelup.php",
+						{
+							userAccount:data[i].userAccount
+						},
+						function(data){
+							
+						});
+					}
+				}
+			});
+		alert("提权成功!");
+		location.reload();
+		});
+	 
+	  });
+	</script>
+
+		<script type="text/javascript">//踢出
+			$(document).ready(function(){
+				$("#kick").click(function(){
+					$.get("../sever/user.php",function(data){
+						data=$.parseJSON(data);
+						for ( var i = 0; i < data.length; i++){
+							if($('#'+data[i].userAccount).prop('checked')){
+								
+							console.log($('#'+data[i].userAccount).attr('id'));
+							$.post("../sever/kick.php",
+								{
+									userAccount:data[i].userAccount
+								},
+								function(data){
+									
+								});
+							}
+						}
+					});
+				alert("踢出成功!");
+				location.reload();
+				});
+			 
+			  });
+			</script>
+	
+	
+
+
+
+
+
+</head>
+
+<body>
+<div id="begin"> 
+    <a href="http://www.hcxdbwork.xyz"><img src="../pictures/logo.png">
+    </a>
+    <h1 style="
+    float: right;
+    color: #FFD700;
+    font-size:20px;
+    ">
+
+        <h id="welcome">
+            您好，管理者!<br>  
+        </h>
+
+    </h1>
+</div>
+
+<div id="recommend">
+    <p>
+        今日推荐：
+        <a class="nodecorate" href="https://www.decembertwentytwo.com/index.php/2020/02/19/pikapika/">
+            <s>恰饭</s><b>PikaPika~</b>
+        </a>
+    </p>
+</div>
+<div id="links">
+    <a class="square" href="https://www.decembertwentytwo.com/">
+        主页
+    </a><br>
+    <a class="square" href="articleManage.html">
+        管理帖子
+    </a><br>
+    <a class="square" href="user.html">
+        查看自己的帖子
+    </a>
+    <a class="square" href="pages/test.html">
+        测试
+    </a>
+</div>
+
+<div id="section">
+    <h style="
+    color: cornflowerblue;
+    ">
+        既然您是管理者的话...
+    </h><br>
+    <p>
+        总之，先看看待批准注册请求吧
+    </p>
+    <table id="infor"
+	style="text-align: center;"
+	border="1">
+
+	</table>
+	<button id="agree">
+		批准
+	</button>
+	<button id="delete">
+		拒绝
+	</button>
+	<p>
+        或者你想管理现有用户？
+    </p>
+    <table id="userinfor"
+	style="text-align: center;"
+	border="1">
+
+	</table>
+	<button id="levelup">
+		提权为管理员
+	</button>
+	<button id="kick">
+		踢出
+	</button>
+</div>
+
+<div id="end">
+    <h>      
+        <a href="beian.miit.gov.cn">
+            beian.miit.gov.cn
+        </a>
+        <h>
+            赣ICP备20000365号<br>
+        </h>
+    </h>
+        <h>
+            <b>是胡辰昕做的网页哦</b>
+        </h>
+
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,500 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>超级辩手云计时</title>
+
+    
+    <script src="/js/jquery-1.11.3.min.js"></script>
+    <script src="/js/jquery.jplayer.min.js"></script>
+
+    <script src="/js/draggabilly.pkgd.js"></script>
+    <script src="/js/jquery.onepage-scroll.js"></script>
+    <link href='/css/bootstrap.css' rel='stylesheet' type='text/css'>
+    <link href='/css/index.css' rel='stylesheet' type='text/css'>
+    <link href='/css/onepage-scroll.css' rel='stylesheet' type='text/css'>
+    
+    <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link href="/css/timerfonts/8timer.css" rel="stylesheet" type="text/css">
+<script>
+
+    $(document).ready(function(){
+
+        $("#jquery_jplayer_1").jPlayer({
+            ready: function () {
+                $(this).jPlayer("setMedia", {
+                   mp3:"/voice/1.mp3"
+                })
+                    // .jPlayer("play")//自动播放
+            },
+            swfPath: "js",//当不支持html5的时候启用swf flash
+            supplied: "mp3", //包含的文件格式
+            wmode: "window"
+
+        });
+            // .jPlayer("play").jPlayer("repeat");//自动播放 自动循环
+        $("#jquery_jplayer_2").jPlayer({
+            ready: function () {
+                $(this).jPlayer("setMedia", {
+                    mp3:"/voice/2.mp3"
+                })
+                // .jPlayer("play")//自动播放
+            },
+            swfPath: "js",//当不支持html5的时候启用swf flash
+            supplied: "mp3", //包含的文件格式
+            wmode: "window"
+
+        });
+    })
+
+
+</script>
+
+
+    <script>
+        $(document).ready(function(){
+            $(".main").onepage_scroll({
+                sectionContainer: "section",
+                responsiveFallback: 600,
+                loop: true
+            });
+        });
+
+    </script>
+
+
+    <style>
+        .footer{
+            position: fixed;
+            width: 100%;
+            height: 40px;
+            bottom: 0;
+            left: 0;
+            text-align: center;
+            color: #999;
+            z-index: 2;
+            padding-bottom: 10px;
+            font-size: 13px;
+        }
+        .footer a{
+            color: #666;
+            text-decoration: underline;
+        }
+
+        @font-face{
+            font-family: 'timerfont';
+            src: url('/fonts/h1.TTF')format('truetype');
+            /*src:url('../font/字体名称.woff') format('woff'),*/
+            /*url('../font/字体名称.ttf') format('truetype'),*/
+            /*url('../font/字体名称.svg') format('svg');*/
+        }
+
+
+
+
+
+        h1{
+            font-size: 115px;
+
+            font-family: timerfont
+        }
+
+        
+        
+        
+
+        .page1 {
+            background-image: url(/images/index.png);
+            background-size: 100% 100%;
+            -moz-background-size: 100% 100%;
+            -webkit-background-size: 100% 100%;
+        }
+
+        
+        .page2 {
+            background-image: url(/images/background.png);
+            background-size: 100% 100%;
+            -moz-background-size: 100% 100%;
+            -webkit-background-size: 100% 100%;
+        }
+
+
+
+        
+        
+        
+        
+            
+            
+            
+            
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+        /*body { background-color: #F3F3F3; }*/
+    </style>
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?e9ec7786e98ff3b8da1f4fc7ec16facc";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+</head>
+<body>
+
+<div class="main">
+
+
+    <section class="page1" >
+        <div id="jquery_jplayer_1" class="jp-jplayer"></div>
+        <div id="jquery_jplayer_2" class="jp-jplayer"></div>
+
+        <div class="footer">
+            
+        </div>
+    </section>
+
+
+    
+
+        <section class="page2" >
+
+        
+            
+            
+
+                <!-- 双计时器-->
+                <div class="container-fluid" style="position: relative">
+                    <div class="row text-center margin-top-sm">
+                    </div>
+                    <div class="row margin-top-md">
+                        <div class="col-lg-5">
+                            <div>
+                                <div class="clearfix">
+                                    <h1 class="bian_name_left">正方</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 text-center">
+                            <h3 style="font-family: 'Microsoft YaHei';font-size: 10rem;">VS</h3>
+                        </div>
+                        <div class="col-lg-5">
+                            <div>
+                                <div class="clearfix">
+                                    <h1 class="bian_name_right">反方</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-lg-5 text-center">
+                            <h1 id="timedown1_1" style="margin-top: 10px;"></h1>
+
+                            <div class="btn-group" role="group" aria-label="...">
+                                <button id="beginBtn1_1" class="btn btn-primary btn-sm" style="background-color: #306A96" onclick="timercontroller1_1()" >开始</button>
+                                <button id="stopBtn1_1" class="btn btn-danger btn-sm" style="background-color: #AA3131" onclick="stoptime1_1()">停止</button>
+                                <!--<button id="resetBtn6" class="btn btn-warning btn-sm" style="background-color: #ED972F">重置</button>-->
+                            </div>
+                        </div>
+                        <div class="col-lg-2 text-center">
+                <span class="text-center"
+                      style="font-family: 'Microsoft YaHei';font-size: 6.0rem;">开篇立论</span><br>
+                        </div>
+                        <div class="col-lg-5 text-center">
+                            <h1 id="N_timedown1_1" style="margin-top: 10px;"></h1>
+                            <div class="btn-group" role="group" aria-label="..." >
+                                <button id="N_beginBtn1_1" class="btn btn-primary btn-sm" style="background-color: #306A96" onclick="N_timercontroller1_1()" >开始
+                                </button>
+                                <button id="N_stopBtn1_1" class="btn btn-danger btn-sm" style="background-color: #AA3131" onclick="N_stoptime1_1()">停止</button>
+                                <!--<button id="resetBtn6_1" class="btn btn-warning btn-sm" style="background-color: #ED972F">重置-->
+                                <!--</button>-->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- 结束 -->
+
+            
+
+            
+
+            
+            
+            
+        
+
+
+
+
+
+            <div class="footer">
+                <p>Copyright ©2019珠海弈鸣文化传播有限公司 All Rights Reserved</p>
+            </div>
+        </section>
+
+
+
+        <!-- 计时器数据渲染以及控制-->
+
+                
+
+                    <script>
+
+
+
+                        var timeout1_1='180';
+
+                        var second1_1 = parseInt(timeout1_1/60);
+                        var minute1_1 = timeout1_1%60;
+                        var handle1_1;
+                        var flag1_1;
+
+                        timerinit1_1();
+
+                        function timercontroller1_1() {
+                            if (flag1_1==0){
+                                countdown1_1();
+                                flag1_1 = 1;
+                            }
+                        }
+
+
+                        function timerinit1_1() {
+
+                            flag1_1 = 0;
+
+                            if (timeout1_1 >=0)
+                            {
+                                if (second1_1>9){
+                                    if (minute1_1>9){
+                                        document.getElementById("timedown1_1").innerHTML='<h1 id="timedown1_1" style="margin-top: 18px;">'+second1_1+':'+minute1_1+'</h1>';
+                                    }else if(minute1_1<=9){
+                                        document.getElementById("timedown1_1").innerHTML='<h1 id="timedown1_1" style="margin-top: 18px;">'+second1_1+':'+'0'+minute1_1+'</h1>';
+                                    }
+                                }else if(second1_1<=9){
+
+                                    if (second1_1==0&&minute1_1<=30){
+
+                                        if (minute1_1>9){
+                                            document.getElementById("timedown1_1").innerHTML='<h1 id="timedown1_1" style="margin-top: 18px;color: #ff1000">'+'0'+second1_1+':'+minute1_1+'</h1>';
+                                        }else if(minute1_1<=9){
+                                            document.getElementById("timedown1_1").innerHTML='<h1 id="timedown1_1" style="margin-top: 18px;color: #ff1000">'+'0'+second1_1+':'+'0'+minute1_1+'</h1>';
+                                        }
+
+                                    }else if (minute1_1>9){
+                                        document.getElementById("timedown1_1").innerHTML='<h1 id="timedown1_1" style="margin-top: 18px;">'+'0'+second1_1+':'+minute1_1+'</h1>';
+                                    }else if(minute1_1<=9){
+                                        document.getElementById("timedown1_1").innerHTML='<h1 id="timedown1_1" style="margin-top: 18px;">'+'0'+second1_1+':'+'0'+minute1_1+'</h1>';
+                                    }
+
+                                }
+
+                                // document.getElementById("timedown1_1").innerHTML='<h1 id="timedown1_1" style="margin-top: 10px;">'+second1_1+':'+minute1_1+'</h1>';
+                            }
+                        }
+
+                        function countdown1_1()
+                        {
+                            // if (timeout1_1 < 0)
+                            // {
+                            //     document.getElementById("timedown1_1").value = '时间到';
+                            //     if(document.getElementById("downloadfile"))document.getElementById("downloadfile").style.display = '';
+                            // }
+                            if (timeout1_1 >=0)
+                            {
+                                if (timeout1_1 ==0){
+                                    $("#jquery_jplayer_2").jPlayer("play");
+                                }
+                                if(timeout1_1 ==30){
+                                    $("#jquery_jplayer_1").jPlayer("play");
+                                }
+                                if (second1_1>9){
+                                    if (minute1_1>9){
+                                        document.getElementById("timedown1_1").innerHTML='<h1 id="timedown1_1" style="margin-top: 18px;">'+second1_1+':'+minute1_1+'</h1>';
+                                    }else if(minute1_1<=9){
+                                        document.getElementById("timedown1_1").innerHTML='<h1 id="timedown1_1" style="margin-top: 18px;">'+second1_1+':'+'0'+minute1_1+'</h1>';
+                                    }
+                                }else if(second1_1<=9){
+
+                                    if (second1_1==0&&minute1_1<=30){
+
+                                        if (minute1_1>9){
+                                            document.getElementById("timedown1_1").innerHTML='<h1 id="timedown1_1" style="margin-top: 18px;color: #ff1000">'+'0'+second1_1+':'+minute1_1+'</h1>';
+                                        }else if(minute1_1<=9){
+                                            document.getElementById("timedown1_1").innerHTML='<h1 id="timedown1_1" style="margin-top: 18px;color: #ff1000">'+'0'+second1_1+':'+'0'+minute1_1+'</h1>';
+                                        }
+
+                                    }else if (minute1_1>9){
+                                        document.getElementById("timedown1_1").innerHTML='<h1 id="timedown1_1" style="margin-top: 18px;">'+'0'+second1_1+':'+minute1_1+'</h1>';
+                                    }else if(minute1_1<=9){
+                                        document.getElementById("timedown1_1").innerHTML='<h1 id="timedown1_1" style="margin-top: 18px;">'+'0'+second1_1+':'+'0'+minute1_1+'</h1>';
+                                    }
+
+                                }
+
+
+                                // document.getElementById("timedown1_1").innerHTML='<h1 id="timedown1_1" style="margin-top: 10px;">'+second1_1+':'+minute1_1+'</h1>';
+                                handle1_1 = setTimeout("countdown1_1()",1000);
+                            }
+                            timeout1_1--;
+                            if (minute1_1>0&&minute1_1<=60){
+
+                                minute1_1--;
+                            }else if (minute1_1==0&&second1_1!=0){
+
+
+                                minute1_1 = 59;
+                                second1_1--;
+
+                            }
+
+                        }
+                        // countdown1_1();T
+
+                        function stoptime1_1(){
+                            clearTimeout(handle1_1);
+                            flag1_1 = 0;
+                        }
+
+                    </script>
+
+                    <script>
+                        var N_timeout1_1='180';
+
+                        var N_second1_1 = parseInt(N_timeout1_1/60);
+                        var N_minute1_1 = N_timeout1_1%60;
+                        var N_handle1_1;
+                        var N_flag1_1;
+
+                        N_timerinit1_1();
+
+                        function N_timercontroller1_1() {
+                            if (N_flag1_1==0){
+                                N_countdown1_1();
+                                N_flag1_1 = 1;
+                            }
+                        }
+
+
+                        function N_timerinit1_1() {
+
+                            N_flag1_1 = 0;
+
+                            if (N_timeout1_1 >=0)
+                            {
+                                if (N_second1_1>9){
+                                    if (N_minute1_1>9){
+                                        document.getElementById("N_timedown1_1").innerHTML='<h1 id="N_timedown1_1" style="margin-top: 18px;">'+N_second1_1+':'+N_minute1_1+'</h1>';
+                                    }else if(N_minute1_1<=9){
+                                        document.getElementById("N_timedown1_1").innerHTML='<h1 id="N_timedown1_1" style="margin-top: 18px;">'+N_second1_1+':'+'0'+N_minute1_1+'</h1>';
+                                    }
+                                }else if(N_second1_1<=9){
+
+                                    if (N_second1_1==0&&N_minute1_1<=30){
+
+                                        if (N_minute1_1>9){
+                                            document.getElementById("N_timedown1_1").innerHTML='<h1 id="N_timedown1_1" style="margin-top: 18px;color: #ff1000">'+'0'+N_second1_1+':'+N_minute1_1+'</h1>';
+                                        }else if(N_minute1_1<=9){
+                                            document.getElementById("N_timedown1_1").innerHTML='<h1 id="N_timedown1_1" style="margin-top: 18px;color: #ff1000">'+'0'+N_second1_1+':'+'0'+N_minute1_1+'</h1>';
+                                        }
+
+                                    }else if (N_minute1_1>9){
+                                        document.getElementById("N_timedown1_1").innerHTML='<h1 id="N_timedown1_1" style="margin-top: 18px;">'+'0'+N_second1_1+':'+N_minute1_1+'</h1>';
+                                    }else if(N_minute1_1<=9){
+                                        document.getElementById("N_timedown1_1").innerHTML='<h1 id="N_timedown1_1" style="margin-top: 18px;">'+'0'+N_second1_1+':'+'0'+N_minute1_1+'</h1>';
+                                    }
+
+                                }
+
+                                // document.getElementById("timedown1_1").innerHTML='<h1 id="timedown1_1" style="margin-top: 10px;">'+second1_1+':'+minute1_1+'</h1>';
+                            }
+                        }
+
+                        function N_countdown1_1()
+                        {
+                            // if (timeout1_1 < 0)
+                            // {
+                            //     document.getElementById("timedown1_1").value = '时间到';
+                            //     if(document.getElementById("downloadfile"))document.getElementById("downloadfile").style.display = '';
+                            // }
+
+
+                            if (N_timeout1_1 >=0)
+                            {
+
+                                if (N_timeout1_1 ==0){
+                                    $("#jquery_jplayer_2").jPlayer("play");
+                                }
+                                if(N_timeout1_1 ==30){
+                                    $("#jquery_jplayer_1").jPlayer("play");
+                                }
+
+                                if (N_second1_1>9){
+                                    if (N_minute1_1>9){
+                                        document.getElementById("N_timedown1_1").innerHTML='<h1 id="N_timedown1_1" style="margin-top: 18px;">'+N_second1_1+':'+N_minute1_1+'</h1>';
+                                    }else if(N_minute1_1<=9){
+                                        document.getElementById("N_timedown1_1").innerHTML='<h1 id="N_timedown1_1" style="margin-top: 18px;">'+N_second1_1+':'+'0'+N_minute1_1+'</h1>';
+                                    }
+                                }else if(N_second1_1<=9){
+
+                                    if (N_second1_1==0&&N_minute1_1<=30){
+
+                                        if (N_minute1_1>9){
+                                            document.getElementById("N_timedown1_1").innerHTML='<h1 id="N_timedown1_1" style="margin-top: 18px;color: #ff1000">'+'0'+N_second1_1+':'+N_minute1_1+'</h1>';
+                                        }else if(N_minute1_1<=9){
+                                            document.getElementById("N_timedown1_1").innerHTML='<h1 id="N_timedown1_1" style="margin-top: 18px;color: #ff1000">'+'0'+N_second1_1+':'+'0'+N_minute1_1+'</h1>';
+                                        }
+
+                                    }else if (N_minute1_1>9){
+                                        document.getElementById("N_timedown1_1").innerHTML='<h1 id="N_timedown1_1" style="margin-top: 18px;">'+'0'+N_second1_1+':'+N_minute1_1+'</h1>';
+                                    }else if(N_minute1_1<=9){
+                                        document.getElementById("N_timedown1_1").innerHTML='<h1 id="N_timedown1_1" style="margin-top: 18px;">'+'0'+N_second1_1+':'+'0'+N_minute1_1+'</h1>';
+                                    }
+
+                                }
+
+
+                                // document.getElementById("timedown1_1").innerHTML='<h1 id="timedown1_1" style="margin-top: 10px;">'+second1_1+':'+minute1_1+'</h1>';
+                                N_handle1_1 = setTimeout("N_countdown1_1()",1000);
+                            }
+                            N_timeout1_1--;
+                            if (N_minute1_1>0&&N_minute1_1<=60){
+                                N_minute1_1--;
+                            }else if (N_minute1_1==0&&N_second1_1!=0){
+                                N_minute1_1 = 59;
+                                N_second1_1--;
+
+                            }
+
+                        }
+                        // countdown1_1();T
+
+                        function N_stoptime1_1(){
+                            clearTimeout(N_handle1_1);
+                            N_flag1_1 = 0;
+                        }
+
+                    </script>
+
+                

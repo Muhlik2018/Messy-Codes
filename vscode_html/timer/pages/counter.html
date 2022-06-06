@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+<meta charset="utf-8"> 
+<title>华工计时器</title>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.3.js" type="text/javascript">
+</script>
+<script type="text/javascript">//打印所有json数据
+$(document).ready(function(){
+		cur_p=0;
+		tot_p=1;
+		p_r_min=0;
+		p_r_sec=0;
+		n_r_min=0;
+		n_r_sec=0;
+		var p_timer=null;
+		var n_timer=null;
+		//get数据
+		$.get("../sever/get_timer.php",function(data){
+		data=$.parseJSON(data);
+		tot_p=data.length;
+		p_r_min=data[cur_p].p_min;
+		p_r_sec=data[cur_p].p_sec;
+		n_r_min=data[cur_p].n_min;
+		n_r_sec=data[cur_p].n_sec;
+			var html='';
+			html=html+'<h1><b>'+data[cur_p].name+'</b></h1>';
+			html=html+'<div><div style="text-align:center;float:left;height:300px;width:600px;" ><h3>正方</h3><h2 id="p_min">'+p_r_min+'</h2>';
+			html=html+'<h2 id="p_sec">'+p_r_sec+'</h2></div>';
+			html=html+'<div style="text-align:center;float:right;height:300px;width:600px;"><h3>反方</h3><h2 id="n_min">'+n_r_min+'</h2>';
+			html=html+'<h2 id="n_sec">'+n_r_sec+'</h2></div></div>';
+		$('#counter').html(html);})
+	
+	//上一面
+	$('#last').click(function(){
+		if(cur_p==0)
+		alert("这是第一个环节!")
+		else
+		{
+			cur_p--;
+			$.get("../sever/get_timer.php",function(data){
+			data=$.parseJSON(data);
+			tot_p=data.length;
+			p_r_min=data[cur_p].p_min;
+			p_r_sec=data[cur_p].p_sec;
+			n_r_min=data[cur_p].n_min;
+			n_r_sec=data[cur_p].n_sec;
+			var html='';
+			html=html+'<h1><b>'+data[cur_p].name+'</b></h1>';
+			html=html+'<div><div style="text-align:center;float:left;height:300px;width:600px;" ><h3>正方</h3><h2 id="p_min">'+p_r_min+'</h2>';
+			html=html+'<h2 id="p_sec">'+p_r_sec+'</h2></div>';
+			html=html+'<div style="text-align:center;float:right;height:300px;width:600px;"><h3>反方</h3><h2 id="n_min">'+n_r_min+'</h2>';
+			html=html+'<h2 id="n_sec">'+n_r_sec+'</h2></div></div>';
+			$('#counter').html(html);});
+			clearInterval(p_timer);
+			p_timer=null;
+			clearInterval(n_timer);
+			n_timer=null;
+		}
+		
+	})
+	//上一面结束
+	//下一面
+	$('#next').click(function(){
+		temp_p=tot_p;
+		temp_p--;
+		if(cur_p==temp_p)
+		alert("这是最后一个环节!")
+		else
+		{
+			cur_p++;
+			$.get("../sever/get_timer.php",function(data){
+			data=$.parseJSON(data);
+			tot_p=data.length;
+			p_r_min=data[cur_p].p_min;
+			p_r_sec=data[cur_p].p_sec;
+			n_r_min=data[cur_p].n_min;
+			n_r_sec=data[cur_p].n_sec;
+			var html='';
+			html=html+'<h1><b>'+data[cur_p].name+'</b></h1>';
+			html=html+'<div><div style="text-align:center;float:left;height:300px;width:600px;" ><h3>正方</h3><h2 id="p_min">'+p_r_min+'</h2>';
+			html=html+'<h2 id="p_sec">'+p_r_sec+'</h2></div>';
+			html=html+'<div style="text-align:center;float:right;height:300px;width:600px;"><h3>反方</h3><h2 id="n_min">'+n_r_min+'</h2>';
+			html=html+'<h2 id="n_sec">'+n_r_sec+'</h2></div></div>';
+			$('#counter').html(html);});
+			clearInterval(p_timer);
+			p_timer=null;
+			clearInterval(n_timer);
+			n_timer=null;
+		}
+		
+	})
+//下一面结束	
+	
+	
+	
+	
+	
+
+	//正方计时
+	$('#p_start').click(function(){
+		p_timer = setInterval(Count,1000);
+		function Count(){
+			if($('#p_sec').html()!='0')
+			{
+			var html_temp=$('#p_sec').html();
+			html_temp--;
+			$('#p_sec').html(html_temp);
+			}
+			else if($('#p_min').html()==0)
+			{
+			clearInterval(p_timer);
+			p_timer=null;
+			}
+			else
+			{
+			var html_temp=$('#p_min').html();
+			html_temp--;
+			$('#p_min').html(html_temp);
+			$('#p_sec').html('59');
+			}
+		}
+	})
+	
+	$('#p_pause').click(function(){
+		clearInterval(p_timer);
+		p_timer=null;
+	})
+	
+	$('#p_reset').click(function(){
+			clearInterval(p_timer);
+			p_timer=null;
+			$('#p_min').html(p_r_min);
+			$('#p_sec').html(p_r_sec);
+	})
+	//正方计时结束
+	//反方计时
+	$('#n_start').click(function(){
+		n_timer = setInterval(Count,1000);
+		function Count(){
+			if($('#n_sec').html()!='0')
+			{
+			var html_temp=$('#n_sec').html();
+			html_temp--;
+			$('#n_sec').html(html_temp);
+			}
+			else if($('#n_min').html()==0)
+			{
+			clearInterval(n_timer);
+			n_timer=null;
+			}
+			else
+			{
+			var html_temp=$('#n_min').html();
+			html_temp--;
+			$('#n_min').html(html_temp);
+			$('#n_sec').html('59');
+			}
+		}
+	})
+	
+	$('#n_pause').click(function(){
+		clearInterval(n_timer);
+		n_timer=null;
+	})
+	
+	$('#n_reset').click(function(){
+			clearInterval(n_timer);
+			n_timer=null;
+			$('#n_min').html(n_r_min);
+			$('#n_sec').html(n_r_sec);
+	})
+	//反方计时结束
+	
+	
+	
+	
+	
+});
+</script>
+
+</head>
+<body style="background-color:
+#FAEBD7">
+	<div style="
+	background-color:#B22222;
+	height:150px;">
+	<a href="http://www.hcxdbwork.xyz"><img src="../picture/logo.png">
+    </a>
+	</div>
+	<div style="height:300px;
+		text-align:center" id="counter">
+	</div>
+	<div style="height:10px;
+		width:1200px">
+	</div>
+	<div style="height:600;
+		text-align:center">
+		<div style="text-align:center;float:left;height:300px;width:600px;">
+		<button type="button" class="btn btn-primary" id="p_start">计时开始</button>
+		<button type="button" class="btn btn-primary" id="p_pause">停止</button>
+		<button type="button" class="btn btn-primary" id="p_reset">重置</button><br><br>
+		</div>
+		<div style="text-align:center;float:right;height:300px;width:600px;">
+		<button type="button" class="btn btn-primary" id="n_start">计时开始</button>
+		<button type="button" class="btn btn-primary" id="n_pause">停止</button>
+		<button type="button" class="btn btn-primary" id="n_reset">重置</button><br><br>
+		</div>
+		<button type="button" class="btn btn-primary" id="last">上一面</button>
+		<button type="button" class="btn btn-primary" id="next">下一面</button><br><br>
+	</div>
+</body>
+</html>

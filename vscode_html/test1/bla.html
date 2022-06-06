@@ -1,0 +1,22 @@
+if($('#p_sec').html()!='0')
+{
+var html_temp=$('#p_sec').html();
+html_temp--;
+$('#p_sec').html(html_temp);
+}
+else if($('#p_min').html()==0)
+{
+clearInterval(p_timer);
+p_timer=null;
+}
+else
+{
+var html_temp=$('#p_min').html();
+html_temp--;
+$('#p_min').html(html_temp);
+$('#p_sec').html('59');
+}
+
+
+html=html+'<div style="text-align:left"><h3>正方</h3></div>';
+			html=html+'<div style="text-align:right"><h3>反方</h3></div>';

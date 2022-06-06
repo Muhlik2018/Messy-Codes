@@ -1,0 +1,144 @@
+'<p>总环节数</p><p id="re_number">'+val+'</p><br>'
+
+<p>环节名称：</p><input type="text" id="name+i" size=20>
+<p>正方时间：</p><input type="text" id="p_min+i" size=20><p>分</p>
+<p>正方时间：</p><input type="text" id="p_sec+i" size=20><p>秒</p>
+<p>反方时间：</p><input type="text" id="n_min+i" size=20><p>分</p>
+<p>反方时间：</p><input type="text" id="n_sec+i" size=20><p>秒</p>
+
+
+<button type="button" class="btn btn-primary" id="accept">确认</button>
+
+
+'<p>环节名称：</p><input type="text" id="name+'+i+'" size=20'>
+<p>正方时间：</p><input type="text" id="p_min+i" size=20><p>分</p>
+<p>正方时间：</p><input type="text" id="p_sec+i" size=20><p>秒</p>
+<p>反方时间：</p><input type="text" id="n_min+i" size=20><p>分</p>
+<p>反方时间：</p><input type="text" id="n_sec+i" size=20><p>秒</p>
+
+
+
+width=100%; height=100%;
+
+
+$.post(
+    "../sever/login.php",
+    {
+        userAccount:$("#account").val(),
+        userPassword:$("#password").val()
+    });
+
+
+    <div style="
+	height:600px;
+	text-align:center;"
+	>
+	<img src="picture/background.png">
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    for(var i=0;i<number;i++){//检查完整性
+        var name='name'+i;
+        console.log(name);
+        console.log($('#'+name).val());
+        var p_min='p_min'+i;
+        var p_sec='p_sec'+i;
+        var n_min='n_min'+i;
+        var n_sec='n_sec'+i;
+        $.post(//提交所有数据
+            "../sever/round.php",
+            {
+            id:identity,
+            name:$('#'+name).val(),
+            number:i,
+            p_min:$('#'+p_min).val(),
+            p_sec:$('#'+p_sec).val(),
+            n_min:$('#'+n_min).val(),
+            n_sec:$('#'+n_sec).val()
+            },
+            function(data){
+                            //data=JSON.parse(data);
+            if(data==1)
+            {
+            location=document.referrer;
+            }
+            else
+            alert("创建失败！"+data.msg);
+            },
+            "json");
+    }//检查完成
+
+
+
+
+
+
+
+
+
+
+
+
+    $.post(//提交所有数据
+    "../sever/timer.php",
+    {
+    round:number
+    },
+    function(data){
+    identity=data;
+    alert(data);
+    alert(identity);
+    },
+    "text"
+    );
+    
+    
+for(var i=0;i<number;i++){//插入round
+var name='name'+i;
+console.log(name);
+console.log($('#'+name).val());
+var p_min='p_min'+i;
+var p_sec='p_sec'+i;
+var n_min='n_min'+i;
+var n_sec='n_sec'+i;
+$.post(//提交所有数据
+"../sever/round.php",
+{
+id:identity,
+name:$('#'+name).val(),
+number:i,
+p_min:$('#'+p_min).val(),
+p_sec:$('#'+p_sec).val(),
+n_min:$('#'+n_min).val(),
+n_sec:$('#'+n_sec).val()
+},
+function(data){
+                //data=JSON.parse(data);
+if(data!=null)
+alert(data);
+},
+"text");
+}//插入
+
+
+
+$.get("../sever/get_timer.php",function(data){
+    data=$.parseJSON(data);
+    var html='';
+    for ( var i = 0; i < data.length; i++) {
+        html=html+'<p>'+data[i].id+'</p><br>';
+        html=html+'<p>'+data[i].round+'</p>';
+    }
+    $('#counter').html(html);
+});

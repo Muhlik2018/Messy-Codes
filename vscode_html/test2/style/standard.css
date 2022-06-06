@@ -1,0 +1,45 @@
+#begin
+{   
+    text-align:left;
+}
+a.nodecorate{
+    text-decoration: none;
+    color:white;
+}
+a.square{
+    border-style:solid;
+    text-decoration: none;
+}
+
+#recommend{
+    background-color: black;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:5px; 
+    font-size:14px;
+}
+#links{
+    background-color: #F8F8FF;
+    line-height:30px;
+    height:480px;
+    width:200px;
+    padding:5px;
+    float:left;
+}
+#section{
+    width:300px;
+    float:left;
+    text-align:center;
+    padding:10px;
+}
+#end
+{
+    background-color: black;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:5px; 
+    font-size:14px;
+
+}
